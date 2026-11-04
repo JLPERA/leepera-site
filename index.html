@@ -91,7 +91,7 @@
 
   /* ---------- Hero ---------- */
   .hero { padding-block: 16px 56px; }
-  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: clamp(40px, 6vw, 96px); align-items: center; max-width: 1040px; margin-inline: auto; }
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: clamp(40px, 6vw, 96px); align-items: center; max-width: min(1200px, calc(100vw - 140px)); margin-inline: auto; }
   .hero-text { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
   .hero h1 {
     font-size: clamp(56px, min(10.5vw, 16vh), 148px);
@@ -102,7 +102,8 @@
     color: var(--teal);
     margin-bottom: 26px;
   }
-  .hero .role { display: inline-block; align-self: flex-start; background: var(--olive); color: var(--paper); padding: 8px 12px; margin-bottom: 28px; }
+  .hero .role .nw { white-space: nowrap; }
+  .hero .role { display: inline-block; align-self: flex-start; background: var(--olive); color: var(--paper); padding: 10px 14px; margin-bottom: 28px; font-size: clamp(14px, 1.4vw, 19px); line-height: 1.35; letter-spacing: 0.01em; }
   .hero .lede { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.5vw, 34px); line-height: 1.2; max-width: 40ch; margin: 0; text-wrap: balance; }
 
   .hero-photo { margin: 0; align-self: center; justify-self: end; width: min(560px, 42vw, calc((100vh - 135px) * .8)); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--olive); }
@@ -327,7 +328,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <h1 class="reveal">Lee Pera</h1>
-      <p class="tag role reveal">Geographer • Participatory Systems Designer</p>
+      <p class="tag role reveal"><span class="nw">Geographer •</span> <span class="nw">Participatory Systems Designer</span></p>
       <p class="lede reveal">I build first-of-their-kind projects at the intersection of technology, land, and community</p>
     </div>
     <figure class="hero-photo reveal"><img src="img/lee-cactus.jpg" alt="Lee Pera standing in front of a tall cactus, smiling"></figure>
