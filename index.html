@@ -188,7 +188,7 @@
   .require ol { list-style: none; margin: 0; padding: 0; }
   .require li {
     font-family: var(--display); font-weight: 800;
-    font-size: clamp(46px, 7.6vw, 112px); line-height: 1.02; letter-spacing: -0.03em;
+    font-size: clamp(40px, 5.2vw, 76px); line-height: 1.02; letter-spacing: -0.03em;
     padding: 6px 0;
   }
   .require li:nth-child(1) { color: var(--teal); }
@@ -284,12 +284,12 @@
   h1, h2, h3, .require li { font-weight: 900; letter-spacing: 0; }
   .hero h1 { letter-spacing: 0.06em; }
   .lede, .bridge, .first, .require .lead, .speaking li { letter-spacing: 0.01em; }
-  .practice h2 { font-size: clamp(64px, 9vw, 130px); }
-  .about h2 { font-size: clamp(56px, 8.5vw, 120px); max-width: 14ch; }
-  .speaking h2 { font-size: clamp(60px, 8vw, 110px); }
-  .notes-card h2 { font-size: clamp(56px, 7.5vw, 110px); }
-  .contact h2 { font-size: clamp(80px, 14vw, 210px); }
-  .bb h3 { font-size: clamp(52px, 6vw, 84px); }
+  .practice h2 { font-size: clamp(56px, 8.4vw, 116px); }
+  .about h2 { font-size: clamp(56px, 8.4vw, 116px); max-width: 14ch; }
+  .speaking h2 { font-size: clamp(56px, 8.4vw, 116px); }
+  .notes-card h2 { font-size: clamp(44px, 5.6vw, 80px); }
+  .contact h2 { font-size: clamp(56px, 8.4vw, 116px); letter-spacing: 0; }
+  .bb h3 { font-size: clamp(44px, 5.6vw, 80px); }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -326,9 +326,8 @@
     .topbar { padding-block: 16px; }
   }
   @media (max-width: 480px) {
-    .practice h2, .speaking h2, .notes-card h2, .bb h3 { font-size: 15vw; }
-    .about h2 { font-size: 12.5vw; }
-    .contact h2 { font-size: 20vw; }
+    .practice h2, .speaking h2, .about h2, .contact h2 { font-size: 13vw; }
+    .notes-card h2, .bb h3 { font-size: 10.5vw; }
     .question p.q { font-size: 7.6vw; }
   }
 </style>
