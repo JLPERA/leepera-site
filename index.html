@@ -2,202 +2,634 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lee Pera · Geographer</title>
-<meta name="description" content="Lee Pera builds first-of-their-kind projects at the intersection of technology, land, community, and culture.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Lee Pera, geographer and participatory systems designer. I build first-of-their-kind projects at the intersection of technology, land, and community.">
 <link rel="canonical" href="https://www.leepera.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Manrope:wght@400;500;700&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
+  /* Layout: a field-map sheet. Generated pixel terrain (contours, dither, dots) runs through the page; text sits on paper beside it. */
   :root {
-    --bg: #F7F5EF;
-    --ink: #1B1F1D;
-    --muted: #5E6662;
-    --rule: #D9D4C7;
-    --link: #223A35;
-    --accent: #D74B38;
+    --paper: #F7F3E8;
+    --ink: #121A1E;
+    --teal: #1C4E65;
+    --slate: #6D85A3;
+    --red: #E84D2D;
+    --yellow: #FDE59C;
+    --olive: #7F8937;
+    --muted: #4A5559;
+    --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+    --body: "Manrope", "Segoe UI", Helvetica, Arial, sans-serif;
+    --pixel: "Silkscreen", "Courier New", monospace;
+    color-scheme: light;
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
-    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
-    font-size: 19px;
-    line-height: 1.6;
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.65;
+    overflow-x: hidden;
   }
-  main {
-    max-width: 660px;
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  p { margin: 0 0 18px; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 800; margin: 0; letter-spacing: -0.02em; text-wrap: balance; }
+  :focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 72px 20px 96px;
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
   }
-  header h1 {
-    font-size: 44px;
-    line-height: 1.1;
-    margin: 0 0 4px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+  .tag {
+    font-family: var(--pixel);
+    font-size: 13px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    line-height: 1.3;
   }
-  header .role {
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  .map { display: block; width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; }
+
+  /* pixel-stepped corners */
+  .step {
+    clip-path: polygon(0 12px, 6px 12px, 6px 6px, 12px 6px, 12px 0, calc(100% - 12px) 0, calc(100% - 12px) 6px, calc(100% - 6px) 6px, calc(100% - 6px) 12px, 100% 12px, 100% calc(100% - 12px), calc(100% - 6px) calc(100% - 12px), calc(100% - 6px) calc(100% - 6px), calc(100% - 12px) calc(100% - 6px), calc(100% - 12px) 100%, 12px 100%, 12px calc(100% - 6px), 6px calc(100% - 6px), 6px calc(100% - 12px), 0 calc(100% - 12px));
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--pixel);
     font-size: 14px;
-    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 36px;
-  }
-  header .lede { font-size: 24px; line-height: 1.4; margin: 0 0 20px; }
-  p { margin: 0 0 20px; }
-  a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  a:hover { color: var(--accent); }
-  nav.links { margin: 28px 0 0; }
-  nav.links a {
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    margin-right: 22px;
-    white-space: nowrap;
-  }
-  hr { border: 0; border-top: 1px solid var(--rule); margin: 56px 0; }
-  h2 {
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 600;
-    margin: 0 0 28px;
-  }
-  h3 { font-size: 26px; font-weight: 400; line-height: 1.25; margin: 0 0 14px; }
-  .work + .work h3 { margin-top: 44px; }
-  .explore {
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-  }
-  ul { padding-left: 1.1em; margin: 0 0 20px; }
-  li { margin-bottom: 6px; }
-  .cta { font-size: 24px; line-height: 1.4; margin-bottom: 20px; }
-  .button {
-    display: inline-block;
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    padding: 12px 20px;
-    border: 1.5px solid var(--ink);
-    border-radius: 999px;
     text-decoration: none;
-    color: var(--ink);
+    padding: 14px 20px;
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 4px 4px 0 var(--red);
+    transition: transform .15s steps(2), box-shadow .15s steps(2);
   }
-  .button:hover { background: var(--ink); color: var(--bg); }
-  footer {
-    margin-top: 72px;
-    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    color: var(--muted);
+  .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--red); }
+  .btn.light { background: var(--paper); color: var(--ink); box-shadow: 4px 4px 0 var(--yellow); }
+  .btn.light:hover { box-shadow: 6px 6px 0 var(--yellow); }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 24px;
+    padding-block: 22px;
+  }
+  .topbar .mark { display: inline-flex; text-decoration: none; }
+  .topbar .compass { width: 51px; height: 51px; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+  .topbar nav { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+  .topbar nav a { font-family: var(--pixel); font-size: 14px; text-transform: uppercase; text-decoration: none; padding: 2px 0; border-bottom: 2px solid transparent; }
+  .topbar nav a:hover { border-bottom-color: var(--red); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding-block: 40px 64px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: stretch; }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .hero h1 {
+    font-size: clamp(56px, min(10.5vw, 16vh), 148px);
+    line-height: .86;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--teal);
+    margin-bottom: 26px;
+  }
+  .hero .role { display: inline-block; align-self: flex-start; background: var(--olive); color: var(--paper); padding: 8px 12px; margin-bottom: 28px; }
+  .hero .lede { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.5vw, 34px); line-height: 1.2; max-width: 40ch; margin: 0; text-wrap: balance; }
+
+  .hero-photo { margin: 0; align-self: center; justify-self: end; width: min(460px, 38vw, calc((100vh - 170px) * .8)); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--olive); }
+  .hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 22%; }
+
+  .divider { height: 96px; border-block: 2px solid var(--ink); }
+
+  /* ---------- Building Beyond card (inside Practice) ---------- */
+  .bb { margin-top: 88px; background: var(--teal); color: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); }
+  .bb .strip { height: 72px; border-bottom: 2px solid var(--ink); }
+  .bb-inner { padding: 56px 48px 60px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; }
+  .bb-inner > div { min-width: 0; }
+  .bb .tag { color: var(--yellow); margin-bottom: 16px; }
+  .bb h3 { font-family: var(--display); font-weight: 800; font-size: clamp(36px, 3.8vw, 48px); line-height: .92; text-transform: uppercase; letter-spacing: -0.02em; }
+  .bb .body { max-width: 60ch; font-size: 19px; }
+  .bb .bridge { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.22; color: var(--yellow); margin: 26px 0 34px; }
+
+  /* ---------- Practice ---------- */
+  .practice { padding-block: 110px 100px; }
+  .practice h2 { font-size: clamp(44px, 6vw, 84px); line-height: .92; text-transform: uppercase; margin-bottom: 44px; }
+  .practice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .practice-grid > div { min-width: 0; }
+  .practice .photo { margin: 0; }
+  .practice .photo img, .geo-photo img { border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--olive); }
+  .caption { margin: 20px 0 0; font-size: 15px; font-weight: 500; color: var(--muted); }
+  .practice .photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .question {
+    margin: 80px 0 0;
+    padding: 48px 0 0;
+    border-top: 2px solid var(--ink);
+  }
+  .question .lead-in { font-size: 20px; font-weight: 500; color: var(--muted); margin-bottom: 16px; }
+  .question p.q {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(40px, 6.6vw, 96px);
+    line-height: 1.02; letter-spacing: 0;
+    max-width: 34ch; margin: 0;
+    text-wrap: balance;
+  }
+  .question .q span { background: linear-gradient(transparent 62%, var(--yellow) 62%); }
+
+  .legend { margin-top: 72px; }
+  .legend > p { font-weight: 700; margin-bottom: 22px; }
+  .legend ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-top: 2px solid var(--ink); border-left: 2px solid var(--ink); }
+  .legend li {
+    display: grid; grid-template-columns: 1fr; align-content: start; gap: 14px; align-items: start;
+    padding: 20px 18px;
+    border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+    font-size: 17px; line-height: 1.4;
+    background: var(--paper);
+    transition: background .2s steps(2);
+  }
+  .legend li:hover { background: #fff; }
+  .swatch { width: 40px; height: 40px; border: 2px solid var(--ink); image-rendering: pixelated; }
+  .sw-solid { background: var(--c); }
+  .sw-dither { background-color: var(--paper); background-image: conic-gradient(var(--c) 25%, transparent 0 50%, var(--c) 0 75%, transparent 0); background-size: 8px 8px; }
+  .sw-dots { background-color: var(--paper); background-image: radial-gradient(var(--c) 2px, transparent 2.5px); background-size: 9px 9px; }
+  .sw-lines { background-color: var(--paper); background-image: repeating-linear-gradient(0deg, var(--c) 0 3px, transparent 3px 8px); }
+  .sw-cells { background-color: var(--c); background-image: linear-gradient(var(--ink) 2px, transparent 2px), linear-gradient(90deg, var(--ink) 2px, transparent 2px); background-size: 12px 10px, 14px 12px; }
+
+  /* ---------- About / geographer ---------- */
+  .about { background: var(--yellow); border-block: 2px solid var(--ink); }
+  .about .inner { padding-block: 110px; }
+  .about h2 { font-size: clamp(40px, 5.6vw, 80px); line-height: .95; text-transform: uppercase; margin-bottom: 56px; max-width: 12ch; }
+  .attend { display: block; margin-bottom: 64px; }
+  .attend .first { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.15; max-width: 52ch; margin: 0; text-wrap: balance; }
+  .attend ul { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .attend li { display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 2px solid var(--ink); font-size: 19px; line-height: 1.4; }
+  .attend li::before { content: ""; flex: none; width: 12px; height: 12px; background: var(--ink); transform: translateY(1px); }
+  .attend li:nth-child(2)::before { background: var(--red); }
+  .attend li:nth-child(3)::before { background: var(--teal); }
+  .attend li:nth-child(4)::before { background: var(--olive); }
+  .attend li:nth-child(5)::before { background: var(--slate); }
+
+  .about .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .about .cols > div { min-width: 0; }
+  .geo-photo { margin: 72px 0 0; max-width: 440px; }
+  .geo-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 40%; }
+  .require { margin-top: 88px; padding-top: 48px; border-top: 2px solid var(--ink); max-width: none; }
+  .require .lead { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.25; margin: 0 0 18px; }
+  .require ol { list-style: none; margin: 0; padding: 0; }
+  .require li {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(30px, 4.4vw, 60px); line-height: 1.02; letter-spacing: -0.03em;
+    padding: 6px 0;
+  }
+  .require li:nth-child(1) { color: var(--teal); }
+  .require li:nth-child(2) { color: var(--olive); }
+  .require li:nth-child(3) { color: var(--red); }
+  .require li:last-child { font-size: clamp(26px, 3.4vw, 46px); font-weight: 800; letter-spacing: 0; line-height: 1.15; color: var(--ink); padding-top: 18px; }
+
+  /* ---------- Field notes ---------- */
+  .notes {
+    padding-block: 110px;
+    background-color: var(--paper);
+  }
+  .notes-card {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    box-shadow: 10px 10px 0 var(--yellow);
+  }
+  .notes-card .left { padding: 48px; border-right: 2px solid var(--ink); min-width: 0; }
+  .notes-card .right { position: relative; min-height: 340px; background: var(--red); }
+  .notes-card .tag { color: var(--red); margin-bottom: 14px; }
+  .notes-card h2 { font-size: clamp(40px, 5vw, 72px); line-height: .92; text-transform: uppercase; margin-bottom: 28px; }
+  .notes-card .sub { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; letter-spacing: 0.01em; margin: 0 0 18px; }
+  .notes-card .body-text { margin-bottom: 32px; }
+
+  /* ---------- Speaking ---------- */
+  .speaking { background: var(--olive); color: var(--paper); border-top: 2px solid var(--ink); }
+  .speaking .inner { padding-block: 110px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .speaking .inner > div { min-width: 0; }
+  .speaking .tag { color: var(--yellow); margin-bottom: 18px; }
+  .speaking h2 { font-size: clamp(40px, 5vw, 66px); line-height: .92; text-transform: uppercase; margin-bottom: 28px; }
+  .speaking .intro { font-size: 20px; max-width: 34ch; }
+  .speaking .topics-label { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.1; letter-spacing: 0.01em; margin-bottom: 16px; }
+  .speaking ul { list-style: none; margin: 0 0 34px; padding: 0; border-top: 2px solid var(--ink); }
+  .speaking li {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 31px); line-height: 1.2;
+    padding: 18px 0;
+    border-bottom: 2px solid var(--ink);
+    display: flex; gap: 18px; align-items: center;
+  }
+  .speaking li .swatch { flex: none; width: 32px; height: 32px; align-self: center; }
+  .speaking .past { margin-bottom: 34px; }
+  .speaking .talk { margin: 36px 0 0; max-width: 560px; }
+  .speaking .talk video { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--ink); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--yellow); }
+  .speaking .talk video::cue { font-family: var(--body); font-size: 18px; line-height: 1.35; color: #fff; background: rgba(18, 26, 30, .82); }
+  .speaking .talk figcaption { margin-top: 16px; color: var(--yellow); font-size: 12px; }
+
+  /* ---------- Contact ---------- */
+  .contact { background: var(--ink); color: var(--paper); }
+  .contact .strip { height: 120px; }
+  .contact .inner { padding-block: 80px 72px; }
+  .contact h2 { font-size: clamp(56px, 10vw, 150px); line-height: .85; text-transform: uppercase; letter-spacing: -0.04em; margin-bottom: 40px; }
+  .contact .email {
+    display: inline-block;
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(24px, 3.4vw, 44px);
+    color: var(--yellow);
+    text-decoration: none;
+    border-bottom: 3px solid var(--red);
+    margin-bottom: 44px;
+    overflow-wrap: anywhere;
+    user-select: all;
+  }
+  .contact .links { display: flex; flex-wrap: wrap; gap: 18px; }
+  footer { padding-block: 28px; border-top: 2px solid #2a3539; font-family: var(--pixel); font-size: 12px; color: #9AA5A8; }
+
+  /* ---------- Reveal ---------- */
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s steps(6); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  h1, h2, h3, .require li { font-weight: 900; letter-spacing: 0; }
+  .hero h1 { letter-spacing: 0.06em; }
+  .lede, .bridge, .first, .require .lead, .speaking li { letter-spacing: 0.01em; }
+  .practice h2 { font-size: clamp(64px, 9vw, 130px); }
+  .about h2 { font-size: clamp(56px, 8.5vw, 120px); max-width: 14ch; }
+  .speaking h2 { font-size: clamp(60px, 8vw, 110px); }
+  .notes-card h2 { font-size: clamp(56px, 7.5vw, 110px); }
+  .contact h2 { font-size: clamp(80px, 14vw, 210px); }
+  .bb h3 { font-size: clamp(52px, 6vw, 84px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .js .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- Narrow screens ---------- */
+  @media (max-width: 900px) {
+    body { font-size: 17px; }
+    .hero-grid, .bb-inner, .practice-grid, .attend, .about .cols, .notes-card, .speaking .inner { grid-template-columns: 1fr; gap: 36px; }
+    .about .cols { gap: 0; }
+    .hero-photo { justify-self: start; width: min(420px, 100%); }
+    .hero h1 { font-size: clamp(56px, 15vw, 120px); }
+    .notes-card .left { border-right: 0; border-bottom: 2px solid var(--ink); padding: 32px 24px; }
+    .notes-card .right { min-height: 220px; }
+    .practice, .about .inner, .notes, .speaking .inner { padding-block: 80px; }
+    .bb-inner { padding: 36px 24px 40px; gap: 24px; }
+    .bb { box-shadow: 6px 6px 0 var(--ink); }
+    .question { margin-top: 56px; }
+    .legend ul { grid-template-columns: 1fr; }
+    .legend li { grid-template-columns: 40px 1fr; }
+    .require { margin-top: 56px; }
   }
   @media (max-width: 480px) {
-    body { font-size: 17px; }
-    main { padding-top: 48px; }
-    header h1 { font-size: 36px; }
-    header .lede, .cta { font-size: 21px; }
-    h3 { font-size: 23px; }
-    nav.links a { display: inline-block; margin: 0 18px 10px 0; }
+    .bb h3, .practice h2, .speaking h2, .notes-card h2 { font-size: 9.4vw; }
+    .about h2 { font-size: 7.2vw; }
+    .question p.q { font-size: 7.6vw; }
+    .contact h2 { font-size: 10.5vw; }
+    .topbar { padding-block: 16px; }
+  }
+  @media (max-width: 480px) {
+    .practice h2, .speaking h2, .notes-card h2, .bb h3 { font-size: 15vw; }
+    .about h2 { font-size: 12.5vw; }
+    .contact h2 { font-size: 20vw; }
+    .question p.q { font-size: 10.5vw; }
   }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-<main>
 
-<header>
-  <h1>Lee Pera</h1>
-  <p class="role">Geographer</p>
-  <p class="lede">I build first-of-their-kind projects at the intersection of technology, land, community, and culture.</p>
-  <p>Today, much of that work comes together through Building Beyond, a participatory platform for land-based storytelling, community knowledge, and emerging technology.</p>
-  <nav class="links">
-    <a href="https://www.linkedin.com/in/leepera/">LinkedIn</a>
-    <a href="https://leepera.substack.com/">Legacy Code</a>
-    <a href="mailto:hello@leepera.com">Contact</a>
+<header class="wrap topbar">
+  <a class="mark" href="#top" aria-label="Lee Pera, back to top"><canvas class="compass" width="17" height="17" aria-hidden="true"></canvas></a>
+  <nav aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#writing">Writing</a>
+    <a href="#speaking">Speaking</a>
+    <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<hr>
+<main id="top">
 
-<section>
-  <h2>Current work</h2>
-  <h3>Building Beyond</h3>
-  <p>Building Beyond is a community-governed game and knowledge platform exploring how ancestral wisdom, land-based knowledge, and emerging technology can help communities imagine and build more resilient futures together.</p>
-  <p>Through participatory storytelling, geospatial systems, and collaborative worldbuilding, the project connects digital experiences to real-world communities, landscapes, and stewardship.</p>
-  <p class="explore"><a href="https://www.buildingbeyond.io/">Explore Building Beyond</a></p>
-</section>
-
-<hr>
-
-<section>
-  <h2>Previous &amp; ongoing work</h2>
-
-  <div class="work">
-    <h3>Housing, Tiny Homes &amp; Community Development</h3>
-    <p>For over a decade, I’ve worked on alternative housing, tiny homes, community development, and housing advocacy.</p>
-    <p>My work has included teaching thousands of people how to build tiny homes, leading home renovation workshops, speaking nationally on housing and zoning, and consulting with tiny home companies on product development, messaging, and community engagement.</p>
-    <p>I’m interested in how communities create more resilient, accessible, and place-based approaches to housing and belonging.</p>
-    <p class="explore"><a href="https://www.tinyhousezone.com/">Explore Tiny House Zone</a></p>
-  </div>
-
-  <div class="work">
-    <h3>Geospatial Systems &amp; Community Mapping</h3>
-    <p>I’ve led and supported geospatial initiatives across government, nonprofit, and community settings — from helping launch the federal government’s first SaaS geospatial platform to participatory mapping initiatives with Indigenous nations and rural communities.</p>
-    <p>My work has included GIS strategy, environmental mapping, training programs, and community-centered approaches to spatial storytelling and decision-making.</p>
-  </div>
-
-  <div class="work">
-    <h3>Research, Migration &amp; Land</h3>
-    <p>My research explores migration, belonging, land use, tourism, and cultural change — including early work on amenity migration and the impacts of digital nomadism on local communities.</p>
-    <p>I’m especially interested in how mobility reshapes identity, housing, stewardship, and relationships to place.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <h1 class="reveal">Lee Pera</h1>
+      <p class="tag role reveal">Geographer • Participatory Systems Designer</p>
+      <p class="lede reveal">I build first-of-their-kind projects at the intersection of technology, land, and community</p>
+    </div>
+    <figure class="hero-photo reveal"><img src="img/lee-cactus.jpg" alt="Lee Pera standing in front of a tall cactus, smiling"></figure>
   </div>
 </section>
 
-<hr>
+<div class="divider" aria-hidden="true"><canvas class="map" data-map="band-paper"></canvas></div>
 
-<section>
-  <h2>Speaking</h2>
-  <h3>Selected Topics</h3>
-  <ul>
-    <li>Tiny homes, housing, and community resilience</li>
-    <li>Geography and emerging technology</li>
-    <li>Mapping, storytelling, and participatory systems</li>
-    <li>Migration, belonging, and the changing nature of home</li>
-    <li>Decentralized and community-governed systems</li>
-    <li>Ancestral wisdom and emerging technology</li>
-  </ul>
+<!-- PRACTICE -->
+<section class="practice">
+  <div class="wrap">
+    <h2 class="reveal">Practice</h2>
+    <div class="practice-grid">
+      <div class="reveal">
+        <p>My work has spanned emerging technology, geospatial systems and mapping, alternative housing, and community building.</p>
+        <p>I’ve helped launch the federal government’s first SaaS geospatial platform, led participatory mapping initiatives in multiple countries, built the nation’s first urban tiny home community, and researched migration and the cultural impacts of mobility.</p>
+      </div>
+      <figure class="photo reveal"><img src="img/lee-tiny-house-reading.jpg" alt="Lee Pera reading a book at the table in her tiny house"></figure>
+    </div>
+
+    <div class="bb reveal">
+      <div class="strip"><canvas class="map" data-map="band-teal" aria-hidden="true"></canvas></div>
+      <div class="bb-inner">
+        <div>
+          <p class="tag">Current work</p>
+          <h3>Building Beyond</h3>
+        </div>
+        <div class="body">
+          <p>I founded Building Beyond, an interactive, narrative platform where seekers, wisdom keepers, and communities come together to share knowledge and design new paths forward.</p>
+          <p class="bridge">A bridge between generations, ways of knowing, and the worlds we are building together</p>
+          <a class="btn light" href="https://www.buildingbeyond.io/">Explore Building Beyond <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="question reveal">
+      <p class="lead-in">The same question runs through all of my work:</p>
+      <p class="q">How do we build systems that help us <span>stay connected to land, each other, and collective responsibility?</span></p>
+    </div>
+
+  </div>
 </section>
 
-<hr>
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap inner">
+    <h2 class="reveal">What does a geographer do?</h2>
 
-<section>
-  <h2>What does a geographer do?</h2>
-  <p>I’m just as comfortable traveling for days on rivers to map environmental resources with rural communities as I am speaking at festivals or presenting to leadership inside government agencies.</p>
-  <p>I grew up moving between countries and cultures, which made me adaptable, resourceful, and deeply interested in how people shape — and are shaped by — place. That eventually led me to geography.</p>
-  <p>Geographers study the “why of where” — why certain things exist where they do, and how relationships between people, place, and power shape our world. Not just maps.</p>
-  <p>My work has taken me from community mapping projects in Indigenous territories to geospatial systems in federal government, from tiny homes and housing advocacy to conversations about emerging technology and resilience.</p>
-  <p>In recent years, I’ve intentionally revisited places connected to my own history and ancestry. I’ve learned about community governance of water systems in Mexico, worked the reindeer roundup in my grandparents’ homeland of Sápmi, and connected with friends in the Pacific Islands around oral histories of climate adaptation and land stewardship.</p>
-  <p>Those experiences continue to shape how I think about technology, community, and the kinds of futures we’re building toward — and ultimately led me to found Building Beyond.</p>
+    <div class="attend">
+      <p class="first reveal">I study the “why of where” and how relationships between people, place, culture, and power shape the world around us</p>
+    </div>
+
+    <div class="cols">
+      <div class="reveal">
+        <p>I grew up between countries and cultures, which taught me early in life that people experience the world through very different maps of reality. That eventually led me to geography.</p>
+        <p>I am just as comfortable traveling for days on rivers to map environmental resources with rural communities as I am speaking in front of thousands of people at festivals, or presenting to senior leadership in government agencies.</p>
+      </div>
+      <div class="reveal">
+        <p>In recent years, I’ve intentionally revisited places connected to my own history and ancestry. I’ve learned about community governance of water systems in Mexico, worked the reindeer roundup in my grandparents’ homeland of Sápmi, and connected with friends in the Pacific Islands around oral histories of climate adaptation.</p>
+        <p>Those experiences continue to shape how I think about technology, stewardship, and the kinds of connections and systems we need for a rapidly changing world.</p>
+      </div>
+    </div>
+
+    <div class="require reveal">
+      <p class="lead">I believe the future will require much more than innovation alone. It will require:</p>
+      <ol>
+        <li>Memory</li>
+        <li>Stewardship</li>
+        <li>Relational intelligence</li>
+        <li>And new ways of building together and being together on Earth</li>
+      </ol>
+    </div>
+  </div>
 </section>
 
-<hr>
-
-<section>
-  <h2>Legacy Code</h2>
-  <p class="cta">The systems we inherited don’t fit the world we’re living in anymore.</p>
-  <p>Legacy Code is where I write about technology, land, migration, community, and the strange process of building new systems before there’s a clear roadmap for them.</p>
-  <p class="explore"><a href="https://leepera.substack.com/">Read Legacy Code</a></p>
+<!-- FIELD NOTES -->
+<section class="notes" id="writing">
+  <div class="wrap">
+    <div class="notes-card reveal">
+      <div class="left">
+        <p class="tag">Newsletter</p>
+        <h2>Legacy Code</h2>
+        <p class="sub">Maintaining the code our ancestors left running</p>
+        <p class="body-text">Legacy Code is where I write about what it takes to build community-owned systems like local AI, game worlds and hand-built homes, and the unseen work most builders skip.</p>
+        <a class="btn" href="https://leepera.substack.com/">Read Legacy Code <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="right"><canvas class="map" data-map="notes" aria-hidden="true"></canvas></div>
+    </div>
+  </div>
 </section>
 
-<hr>
-
-<section>
-  <p class="cta">Interested in collaboration, speaking, or building something together?</p>
-  <a class="button" href="https://calendly.com/leepera-8ncf/30min">Schedule a Conversation</a>
+<!-- SPEAKING -->
+<section class="speaking" id="speaking">
+  <div class="wrap inner">
+    <div class="reveal">
+      <h2>Speaking</h2>
+      <figure class="talk">
+        <video controls playsinline preload="metadata" poster="video/lee-pera-msu-2024-poster.jpg">
+          <source src="video/lee-pera-msu-2024.mp4" type="video/mp4">
+          <track kind="captions" src="video/lee-pera-msu-2024.vtt" srclang="en" label="English" default>
+        </video>
+        <figcaption class="tag">Montana State University · GIS Day · November 2024</figcaption>
+      </figure>
+    </div>
+    <div class="reveal">
+      <p class="topics-label">Topics I speak on include:</p>
+      <ul>
+        <li><span class="swatch sw-dots" style="--c: var(--red)"></span>AI, relational intelligence &amp; cultural memory</li>
+        <li><span class="swatch sw-dither" style="--c: var(--teal)"></span>participatory systems, governance &amp; community-owned technology</li>
+        <li><span class="swatch sw-solid" style="--c: var(--yellow)"></span>tiny homes &amp; alternative community models</li>
+        <li><span class="swatch sw-cells" style="--c: var(--yellow)"></span>ancestral knowledge &amp; future-building</li>
+      </ul>
+      <p class="past">Past speaking has included: conferences, keynotes, workshops, podcasts and community gatherings.</p>
+      <a class="btn" href="mailto:hello@leepera.com?subject=Speaking%20inquiry">Inquire About Speaking <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
 </section>
 
-<footer>© Lee Pera</footer>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="strip"><canvas class="map" data-map="band-ink" aria-hidden="true"></canvas></div>
+  <div class="wrap inner">
+    <h2 class="reveal">Contact</h2>
+    <a class="email reveal" href="mailto:hello@leepera.com">hello@leepera.com</a>
+    <div class="links reveal">
+      <a class="btn light" href="https://calendly.com/leepera-8ncf/30min">Schedule a Conversation <span aria-hidden="true">→</span></a>
+      <a class="btn light" href="https://www.linkedin.com/in/leepera/">LinkedIn <span aria-hidden="true">→</span></a>
+      <a class="btn light" href="https://leepera.substack.com/">Newsletter <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <footer class="wrap">© 2026 Lee Pera</footer>
+</section>
 
 </main>
+
+<script>
+(() => {
+  // ---------- keep the name on one line, as large as its column allows ----------
+  const name = document.querySelector('.hero h1');
+  function fitName() {
+    if (!name) return;
+    name.style.fontSize = '';
+    const max = parseFloat(getComputedStyle(name).fontSize) * 1.6;
+    name.style.fontSize = '100px';
+    const w = name.parentElement.clientWidth;
+    const r = document.createRange(); r.selectNodeContents(name);
+    const textW = r.getBoundingClientRect().width;
+    const size = Math.min(max, 100 * w / textW * 0.98) * 0.75;
+    name.style.fontSize = size.toFixed(1) + 'px';
+  }
+  fitName();
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitName);
+  addEventListener('resize', fitName);
+
+
+  // ---------- pixel compass in the menu ----------
+  const cmp = document.querySelector('.compass');
+  if (cmp) {
+    const N = 17, c = cmp.getContext('2d'), mid = (N - 1) / 2;
+    const col = { ink: '#1C4E65', red: '#E84D2D', slate: '#6D85A3', yellow: '#FDE59C', olive: '#7F8937' };
+    const px = (x, y, k) => { if (x < 0 || y < 0 || x >= N || y >= N) return; c.fillStyle = col[k]; c.fillRect(x, y, 1, 1); };
+    const line = (x0, y0, x1, y1, k) => { // Bresenham
+      x0 = Math.round(x0); y0 = Math.round(y0); x1 = Math.round(x1); y1 = Math.round(y1);
+      const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1; let e = dx + dy;
+      for (;;) { px(x0, y0, k); if (x0 === x1 && y0 === y1) break; const e2 = 2 * e; if (e2 >= dy) { e += dy; x0 += sx; } if (e2 <= dx) { e += dx; y0 += sy; } }
+    };
+    function drawCompass(a) {
+      c.clearRect(0, 0, N, N);
+      // ring
+      for (let i = 0; i < 96; i++) { const t = i / 96 * Math.PI * 2; px(Math.round(mid + Math.cos(t) * 7.6), Math.round(mid + Math.sin(t) * 7.6), 'ink'); }
+      // diamond shape: along an axis at angle ang, length L, half-width W at the centre
+      const diamond = (ang, L, W, front, back) => {
+        const dx = Math.sin(ang), dy = -Math.cos(ang);
+        for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+          const vx = x - mid, vy = y - mid, along = vx * dx + vy * dy, across = -vx * dy + vy * dx;
+          if (Math.abs(along) <= L && Math.abs(across) <= W * (1 - Math.abs(along) / L) + 0.35) px(x, y, along >= 0 ? front : back);
+        }
+      };
+      diamond(Math.PI / 2, 5.6, 1.2, 'olive', 'olive');   // fixed east-west points of the rose
+      diamond(a, 6.6, 1.9, 'red', 'ink');                  // the needle: red north, dark south
+      px(mid, mid, 'yellow');
+    }
+    let ct = 0;
+    drawCompass(0.35);
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(() => { ct += 0.12; drawCompass(Math.sin(ct) * 0.7 + Math.sin(ct * 0.37) * 0.35); }, 140);
+    }
+  }
+
+  // ---------- scroll reveal (content is visible if this never runs) ----------
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  } else reveals.forEach(el => el.classList.add('in'));
+
+  // ---------- pixel terrain maps ----------
+  const C = {
+    paper: [247,243,232], ink: [18,26,30], teal: [28,78,101], slate: [109,133,163],
+    red: [232,77,45], yellow: [253,229,156], olive: [127,137,55]
+  };
+  // band fills from low ground to high ground
+  const VARIANTS = {
+    hero:      { cell: 6, scale: .028, bg: 'paper', ink: 'ink', speed: .006,
+                 bands: [['dither','slate'],['none'],['dots','teal'],['none'],['solid','olive'],['dither','olive'],['none'],['cells','red'],['solid','yellow'],['dots','red']] },
+    'band-teal': { cell: 6, scale: .035, bg: 'teal', ink: 'ink', speed: .008,
+                 bands: [['none'],['dots','slate'],['none'],['dither','yellow'],['solid','yellow'],['none'],['dither','slate']] },
+    notes:     { cell: 6, scale: .04, bg: 'red', ink: 'ink', speed: .007,
+                 bands: [['none'],['dither','yellow'],['none'],['cells','yellow'],['dots','paper'],['none'],['solid','yellow']] },
+    'band-paper': { cell: 6, scale: .03, bg: 'paper', ink: 'ink', speed: .006,
+                 bands: [['none'],['dots','slate'],['none'],['dither','olive'],['none'],['dots','red'],['dither','yellow']] },
+    'band-ink':  { cell: 6, scale: .03, bg: 'ink', ink: 'paper', speed: .006,
+                 bands: [['none'],['dots','slate'],['none'],['dither','olive'],['none'],['dots','red'],['dither','yellow']] }
+  };
+
+  // small value-noise
+  function hash(x, y, z, s) {
+    let h = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(z, 1103515245) + Math.imul(s, 1442695041)) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+  }
+  const fade = t => t * t * (3 - 2 * t);
+  function noise(x, y, z, s) {
+    const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+    const xf = fade(x - xi), yf = fade(y - yi), zf = fade(z - zi);
+    const L = (a, b, t) => a + (b - a) * t;
+    const v = (dx, dy, dz) => hash(xi + dx, yi + dy, zi + dz, s);
+    return L(
+      L(L(v(0,0,0), v(1,0,0), xf), L(v(0,1,0), v(1,1,0), xf), yf),
+      L(L(v(0,0,1), v(1,0,1), xf), L(v(0,1,1), v(1,1,1), xf), yf), zf);
+  }
+  const fbm = (x, y, z, s) => (noise(x, y, z, s) * .6 + noise(x * 2.1, y * 2.1, z, s + 7) * .28 + noise(x * 4.3, y * 4.3, z, s + 13) * .12);
+
+  function pattern(kind, x, y) {
+    switch (kind) {
+      case 'solid': return true;
+      case 'dither': return (x + y) % 2 === 0;
+      case 'dots': return x % 3 === 0 && y % 3 === 0;
+      case 'cells': return (x % 7 === 0) || ((y + (Math.floor(x / 7) % 2) * 3) % 6 === 0);
+      default: return false;
+    }
+  }
+
+  const maps = [];
+  document.querySelectorAll('canvas[data-map]').forEach((cv, i) => {
+    const v = VARIANTS[cv.dataset.map];
+    const ctx = cv.getContext('2d');
+    const m = { cv, ctx, v, t: Math.random() * 50, seed: 11 + i * 31, img: null, cols: 0, rows: 0, visible: true };
+    maps.push(m);
+  });
+
+  function size(m) {
+    const r = m.cv.getBoundingClientRect();
+    m.cols = Math.max(4, Math.ceil(r.width / m.v.cell));
+    m.rows = Math.max(4, Math.ceil(r.height / m.v.cell));
+    m.cv.width = m.cols; m.cv.height = m.rows;
+    m.img = m.ctx.createImageData(m.cols, m.rows);
+    m.field = new Float32Array(m.cols * m.rows);
+  }
+
+  function draw(m) {
+    const { cols, rows, v, field, img } = m;
+    if (!img) return;
+    const n = v.bands.length, d = img.data, bg = C[v.bg], ink = C[v.ink];
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      field[y * cols + x] = Math.min(n - 1, Math.floor(fbm(x * v.scale, y * v.scale, m.t, m.seed) * n * 1.25 - n * .12));
+    }
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const i = y * cols + x, b = Math.max(0, field[i]);
+      let col = bg;
+      const edge = (x + 1 < cols && field[i + 1] !== field[i]) || (y + 1 < rows && field[i + cols] !== field[i]);
+      if (edge) col = ink;
+      else {
+        const [kind, c] = v.bands[b];
+        if (kind !== 'none' && pattern(kind, x, y)) col = C[c];
+      }
+      const o = i * 4; d[o] = col[0]; d[o + 1] = col[1]; d[o + 2] = col[2]; d[o + 3] = 255;
+    }
+    m.ctx.putImageData(img, 0, 0);
+  }
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function all() { maps.forEach(m => { size(m); draw(m); }); }
+  all();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(all, 150); });
+
+  if (!reduce) {
+    const vo = new IntersectionObserver(es => es.forEach(e => {
+      const m = maps.find(m => m.cv === e.target); if (m) m.visible = e.isIntersecting;
+    }));
+    maps.forEach(m => vo.observe(m.cv));
+    let last = 0;
+    (function loop(ts) {
+      if (ts - last > 110) { // step like a slow pixel animation
+        last = ts;
+        maps.forEach(m => { if (m.visible) { m.t += m.v.speed * 1.6; draw(m); } });
+      }
+      requestAnimationFrame(loop);
+    })(0);
+  }
+})();
+</script>
 </body>
 </html>
