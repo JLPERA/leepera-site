@@ -254,7 +254,12 @@
     user-select: all;
   }
   .contact .links { display: flex; flex-wrap: wrap; gap: 18px; }
-  .contact-form { display: grid; gap: 18px; max-width: 760px; margin-bottom: 56px; }
+  .cf-dialog { width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; padding: 44px 40px 40px; background: var(--ink); color: var(--paper); border: 2px solid var(--paper); box-shadow: 10px 10px 0 var(--yellow); }
+  .cf-dialog::backdrop { background: rgba(18, 26, 30, .72); }
+  .cf-dialog h3 { font-family: var(--display); font-weight: 900; font-size: clamp(36px, 4vw, 56px); line-height: .95; text-transform: uppercase; margin: 0 0 28px; color: var(--paper); }
+  .cf-close { position: absolute; top: 12px; right: 14px; width: 44px; height: 44px; border: 0; background: transparent; color: var(--paper); font-size: 34px; line-height: 1; cursor: pointer; }
+  .cf-close:hover { color: var(--yellow); }
+  .contact-form { display: grid; gap: 18px; }
   .contact-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .contact-form label { display: grid; gap: 8px; font-family: var(--pixel); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--yellow); }
   .contact-form .opt { color: #9AA5A8; text-transform: none; font-family: var(--body); letter-spacing: 0; }
@@ -313,6 +318,7 @@
     .hero .role .nw { white-space: normal; }
     .hero .role { font-size: 13px; }
     .contact-form .row { grid-template-columns: 1fr; }
+    .cf-dialog { padding: 40px 18px 24px; }
     .bb h3, .practice h2, .speaking h2, .notes-card h2 { font-size: 9.4vw; }
     .about h2 { font-size: 7.2vw; }
     .question p.q { font-size: 7.6vw; }
@@ -461,7 +467,7 @@
         <li><span class="swatch sw-cells" style="--c: var(--yellow)"></span>ancestral knowledge &amp; future-building</li>
       </ul>
       <p class="past">Past speaking has included: conferences, keynotes, workshops, podcasts and community gatherings.</p>
-      <a class="btn" href="#contact" data-topic="Speaking">Inquire About Speaking <span aria-hidden="true">→</span></a>
+      <a class="btn" href="#contact" data-open-contact data-topic="Speaking">Inquire About Speaking <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -471,30 +477,8 @@
   <div class="strip"><canvas class="map" data-map="band-ink" aria-hidden="true"></canvas></div>
   <div class="wrap inner">
     <h2 class="reveal">Contact</h2>
-    <form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/maeevdgj" method="POST">
-      <div class="row">
-        <label for="cf-name">Name<input id="cf-name" name="name" type="text" autocomplete="name" required></label>
-        <label for="cf-email">Email<input id="cf-email" name="email" type="email" autocomplete="email" required></label>
-      </div>
-      <div class="row">
-        <label for="cf-org"><span>Organization <span class="opt">(optional)</span></span><input id="cf-org" name="organization" type="text" autocomplete="organization"></label>
-        <label for="cf-topic">What is this about?
-          <select id="cf-topic" name="topic">
-            <option>Speaking</option>
-            <option>Collaboration</option>
-            <option>Something else</option>
-          </select>
-        </label>
-      </div>
-      <label for="cf-message">Message<textarea id="cf-message" name="message" rows="5" required></textarea></label>
-      <input type="hidden" name="_subject" id="cf-subject" value="New message from leepera.com">
-      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <div class="send-row">
-        <button class="btn light" type="submit">Send <span aria-hidden="true">→</span></button>
-        <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
-      </div>
-    </form>
     <div class="links reveal">
+      <a class="btn light" href="#contact" data-open-contact>Contact Me <span aria-hidden="true">→</span></a>
       <a class="btn light" href="https://calendly.com/leepera-8ncf/30min">Schedule a Conversation <span aria-hidden="true">→</span></a>
       <a class="btn light" href="https://www.linkedin.com/in/leepera/">LinkedIn <span aria-hidden="true">→</span></a>
       <a class="btn light" href="https://leepera.substack.com/">Newsletter <span aria-hidden="true">→</span></a>
@@ -504,6 +488,35 @@
 </section>
 
 </main>
+
+<dialog class="cf-dialog" id="cf-dialog" aria-labelledby="cf-title">
+  <button class="cf-close" type="button" aria-label="Close">×</button>
+  <h3 id="cf-title">Send a message</h3>
+  <form class="contact-form" id="contact-form" action="https://formspree.io/f/maeevdgj" method="POST">
+    <div class="row">
+      <label for="cf-name">Name<input id="cf-name" name="name" type="text" autocomplete="name" required></label>
+      <label for="cf-email">Email<input id="cf-email" name="email" type="email" autocomplete="email" required></label>
+    </div>
+    <div class="row">
+      <label for="cf-org"><span>Organization <span class="opt">(optional)</span></span><input id="cf-org" name="organization" type="text" autocomplete="organization"></label>
+      <label for="cf-topic">What is this about?
+        <select id="cf-topic" name="topic">
+          <option>Speaking</option>
+          <option>Collaboration</option>
+          <option>Something else</option>
+        </select>
+      </label>
+    </div>
+    <label for="cf-message">Message<textarea id="cf-message" name="message" rows="5" required></textarea></label>
+    <input type="hidden" name="_subject" id="cf-subject" value="New message from leepera.com">
+    <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="send-row">
+      <button class="btn light" type="submit">Send <span aria-hidden="true">→</span></button>
+      <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+</dialog>
+
 
 <script>
 (() => {
@@ -564,7 +577,11 @@
   const cf = document.getElementById('contact-form');
   if (cf) {
     const status = document.getElementById('cf-status'), topic = document.getElementById('cf-topic'), subj = document.getElementById('cf-subject');
-    document.querySelectorAll('a[data-topic]').forEach(a => a.addEventListener('click', () => { topic.value = a.dataset.topic; }));
+    const dlg = document.getElementById('cf-dialog');
+    const openForm = (t) => { if (t) topic.value = t; status.textContent = ''; if (dlg.showModal) { dlg.showModal(); document.getElementById('cf-name').focus(); } };
+    document.querySelectorAll('[data-open-contact]').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); openForm(a.dataset.topic); }));
+    dlg.querySelector('.cf-close').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target !== dlg) return; const r = dlg.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close(); });
     cf.addEventListener('submit', async (e) => {
       e.preventDefault();
       subj.value = 'leepera.com: ' + topic.value;
