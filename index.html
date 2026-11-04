@@ -213,7 +213,9 @@
   .notes-card h2 { font-size: clamp(40px, 5vw, 72px); line-height: .92; text-transform: uppercase; margin-bottom: 28px; }
   .notes-card .sub { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; letter-spacing: 0.01em; margin: 0 0 18px; }
   .notes-card .body-text { margin-bottom: 28px; }
-  .notes-card .substack { display: block; width: 100%; max-width: 480px; height: 320px; border: 2px solid var(--ink); background: #fff; }
+  /* Substack box cropped to show only the email field, button and terms line (measured: form starts ~200px down in a 320px box) */
+  .notes-card .substack-crop { width: 100%; max-width: 480px; height: 120px; overflow: hidden; border: 2px solid var(--ink); background: var(--paper); }
+  .notes-card .substack { display: block; width: 100%; height: 320px; margin-top: -198px; border: 0; }
 
   /* ---------- Speaking ---------- */
   .speaking { background: var(--olive); color: var(--paper); border-top: 2px solid var(--ink); }
@@ -318,6 +320,8 @@
   @media (max-width: 480px) {
     .hero .role .nw { white-space: normal; }
     .hero .role { font-size: 13px; }
+    .notes-card .substack-crop { height: 56px; }
+    .notes-card .substack { margin-top: -201px; width: calc(100% + 18px); }
     .contact-form .row { grid-template-columns: 1fr; }
     .cf-dialog { padding: 40px 18px 24px; }
     .bb h3, .practice h2, .speaking h2, .notes-card h2 { font-size: 9.4vw; }
@@ -438,7 +442,7 @@
         <h2>Legacy Code</h2>
         <p class="sub">Maintaining the code our ancestors left running</p>
         <p class="body-text">Legacy Code is where I write about what it takes to build community-owned systems like local AI, game worlds and hand-built homes, and the unseen work most builders skip.</p>
-        <iframe class="substack" src="https://leepera.substack.com/embed" title="Subscribe to Legacy Code" loading="lazy" frameborder="0" scrolling="no"></iframe>
+        <div class="substack-crop"><iframe class="substack" src="https://leepera.substack.com/embed" title="Subscribe to Legacy Code" loading="lazy" frameborder="0" scrolling="no"></iframe></div>
       </div>
       <div class="right"><canvas class="map" data-map="notes" aria-hidden="true"></canvas></div>
     </div>
