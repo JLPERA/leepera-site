@@ -254,6 +254,22 @@
     user-select: all;
   }
   .contact .links { display: flex; flex-wrap: wrap; gap: 18px; }
+  .contact-form { display: grid; gap: 18px; max-width: 760px; margin-bottom: 56px; }
+  .contact-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .contact-form label { display: grid; gap: 8px; font-family: var(--pixel); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--yellow); }
+  .contact-form .opt { color: #9AA5A8; text-transform: none; font-family: var(--body); letter-spacing: 0; }
+  .contact-form input, .contact-form select, .contact-form textarea {
+    font-family: var(--body); font-size: 17px; color: var(--ink); background: var(--paper);
+    border: 2px solid var(--paper); padding: 12px 14px; border-radius: 0; width: 100%; min-width: 0;
+    text-transform: none; letter-spacing: 0;
+  }
+  .contact-form textarea { resize: vertical; }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: 3px solid var(--red); outline-offset: 2px; }
+  .contact-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .contact-form .send-row { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+  .contact-form button { border: 0; cursor: pointer; }
+  .form-status { margin: 0; font-size: 16px; color: var(--paper); }
+
   footer { padding-block: 28px; border-top: 2px solid #2a3539; font-family: var(--pixel); font-size: 12px; color: #9AA5A8; }
 
   /* ---------- Reveal ---------- */
@@ -296,6 +312,7 @@
   @media (max-width: 480px) {
     .hero .role .nw { white-space: normal; }
     .hero .role { font-size: 13px; }
+    .contact-form .row { grid-template-columns: 1fr; }
     .bb h3, .practice h2, .speaking h2, .notes-card h2 { font-size: 9.4vw; }
     .about h2 { font-size: 7.2vw; }
     .question p.q { font-size: 7.6vw; }
@@ -444,7 +461,7 @@
         <li><span class="swatch sw-cells" style="--c: var(--yellow)"></span>ancestral knowledge &amp; future-building</li>
       </ul>
       <p class="past">Past speaking has included: conferences, keynotes, workshops, podcasts and community gatherings.</p>
-      <a class="btn" href="mailto:hello@leepera.com?subject=Speaking%20inquiry">Inquire About Speaking <span aria-hidden="true">→</span></a>
+      <a class="btn" href="#contact" data-topic="Speaking">Inquire About Speaking <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -454,7 +471,29 @@
   <div class="strip"><canvas class="map" data-map="band-ink" aria-hidden="true"></canvas></div>
   <div class="wrap inner">
     <h2 class="reveal">Contact</h2>
-    <a class="email reveal" href="mailto:hello@leepera.com">hello@leepera.com</a>
+    <form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/maeevdgj" method="POST">
+      <div class="row">
+        <label for="cf-name">Name<input id="cf-name" name="name" type="text" autocomplete="name" required></label>
+        <label for="cf-email">Email<input id="cf-email" name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <div class="row">
+        <label for="cf-org"><span>Organization <span class="opt">(optional)</span></span><input id="cf-org" name="organization" type="text" autocomplete="organization"></label>
+        <label for="cf-topic">What is this about?
+          <select id="cf-topic" name="topic">
+            <option>Speaking</option>
+            <option>Collaboration</option>
+            <option>Something else</option>
+          </select>
+        </label>
+      </div>
+      <label for="cf-message">Message<textarea id="cf-message" name="message" rows="5" required></textarea></label>
+      <input type="hidden" name="_subject" id="cf-subject" value="New message from leepera.com">
+      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="send-row">
+        <button class="btn light" type="submit">Send <span aria-hidden="true">→</span></button>
+        <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
     <div class="links reveal">
       <a class="btn light" href="https://calendly.com/leepera-8ncf/30min">Schedule a Conversation <span aria-hidden="true">→</span></a>
       <a class="btn light" href="https://www.linkedin.com/in/leepera/">LinkedIn <span aria-hidden="true">→</span></a>
@@ -518,6 +557,25 @@
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setInterval(() => { ct += 0.12; drawCompass(Math.sin(ct) * 0.7 + Math.sin(ct * 0.37) * 0.35); }, 140);
     }
+  }
+
+
+  // ---------- contact form (Formspree) ----------
+  const cf = document.getElementById('contact-form');
+  if (cf) {
+    const status = document.getElementById('cf-status'), topic = document.getElementById('cf-topic'), subj = document.getElementById('cf-subject');
+    document.querySelectorAll('a[data-topic]').forEach(a => a.addEventListener('click', () => { topic.value = a.dataset.topic; }));
+    cf.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      subj.value = 'leepera.com: ' + topic.value;
+      const btn = cf.querySelector('button'); btn.disabled = true; status.textContent = 'Sending…';
+      try {
+        const r = await fetch(cf.action, { method: 'POST', body: new FormData(cf), headers: { Accept: 'application/json' } });
+        if (r.ok) { cf.reset(); status.textContent = 'Thank you. Your message was sent.'; }
+        else { status.textContent = 'That did not go through. Please try again, or reach me on LinkedIn.'; }
+      } catch (err) { status.textContent = 'That did not go through. Please try again, or reach me on LinkedIn.'; }
+      btn.disabled = false;
+    });
   }
 
   // ---------- scroll reveal (content is visible if this never runs) ----------
